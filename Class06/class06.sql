@@ -4,11 +4,10 @@ use sakila;
 
 #List all the actors that share the last name. Show them in order
 
-SELECT first_name,last_name FROM customer c1 
- WHERE EXISTS (
-	SELECT * FROM customer c2 
-		WHERE c1.last_name = c2.last_name AND c1.customer_id != c2.customer_id
-			)ORDER BY c1.last_name;
+SELECT first_name,last_name FROM customer c1 WHERE EXISTS (
+SELECT * FROM customer c2 
+WHERE c1.last_name = c2.last_name AND c1.customer_id != c2.customer_id
+)ORDER BY c1.last_name;
 			
             
 #Find actors that don't work in any film
@@ -77,8 +76,7 @@ where a.actor_id not in (
   select f_a.actor_id from film_actor f_a
   inner join film f on f_a.film_id = f.film_id
   where f.title like '%BETRAYED REAR%'
-)
-and a.actor_id not in (
+)and a.actor_id not in (
   select f_a.actor_id from film_actor f_a
   inner join film f on f_a.film_id = f.film_id
   where f.title like '%CATCH AMISTAD%'
